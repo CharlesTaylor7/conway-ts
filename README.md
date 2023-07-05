@@ -1,5 +1,7 @@
-# ts-node-template
-Template for writing Node apps with Typescript.
+# Conway
+This is a simple terminal app that animates [Conway's game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+The initial state of the game is read from `conway.txt`.
+
 
 ## Development Commands
 
