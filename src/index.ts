@@ -1,19 +1,22 @@
-import { hello } from "./hello";
-import readline from "node:readline/promises";
+import { open } from "node:fs/promises";
+
+import { renderView, nextState, parse, padGame } from "./conway";
 
 async function main() {
-  console.log(hello("world!"));
+  const file = await open("./conway.txt", "r");
+  const input = [];
 
-  const app = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  for await (const line of file.readLines()) {
+    input.push(line);
+  }
 
-  const answer = await app.question("What do you think of Node.js? ");
-    
-  console.log(`Thank you for your valuable feedback: ${answer}`);
-    
-  app.close();
+  let state = parse(input);
+  padGame(state, 20);
+  setInterval(() => {
+    console.clear();
+    console.log(renderView(state));
+    state = nextState(state);
+  }, 400);
 }
 
 main();
